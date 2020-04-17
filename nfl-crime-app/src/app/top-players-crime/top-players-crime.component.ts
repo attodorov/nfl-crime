@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { NfldataServiceService } from '../nfldata-service.service';
 import { CrimeRecord } from '../datamodel/CrimeRecord';
 import { PlayerCrimeRecord } from '../datamodel/PlayerCrimeRecord';
@@ -10,6 +10,7 @@ import { PlayerCrimeRecord } from '../datamodel/PlayerCrimeRecord';
 })
 export class TopPlayersCrimeComponent implements OnInit {
 
+  //public filterInput: string = null;
   public _selectedCrime: string = null;
   public columnsToDisplay: Array<string> = ['name', 'arrestcount'];
 
@@ -18,6 +19,7 @@ export class TopPlayersCrimeComponent implements OnInit {
     this.topplayercrimes = new Array<PlayerCrimeRecord>();
   }
 
+  public topplayersFiltered: Array<PlayerCrimeRecord> = null;
   public crimes: Array<CrimeRecord> = null;
   public topplayercrimes: Array<PlayerCrimeRecord> = null;
 
@@ -30,6 +32,8 @@ export class TopPlayersCrimeComponent implements OnInit {
   }
   public set selectedCrime(value: string) {
     this._selectedCrime = value;
+    // also clear filter in case any value is set
+    //this.filterInput = "";
     //Refresh table !
     this.getTopPlayerCrimes(this._selectedCrime);
   }
@@ -49,6 +53,17 @@ export class TopPlayersCrimeComponent implements OnInit {
   public getTopPlayerCrimes(crime: string): void {
     this.nflDataService.getTopPlayersForCrime(crime).subscribe(resp => {
       this.topplayercrimes = resp;
+      this.topplayersFiltered = this.topplayercrimes;
+    });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    if (filterValue.trim() == "") {
+      this.topplayersFiltered = this.topplayercrimes;
+    }
+    this.topplayersFiltered = this.topplayercrimes.filter(function (row) {
+      return row.name.toLowerCase().indexOf(filterValue.trim().toLowerCase()) >= 0;
     });
   }
 }

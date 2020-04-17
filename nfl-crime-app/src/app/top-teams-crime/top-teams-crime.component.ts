@@ -18,6 +18,7 @@ export class TopTeamsCrimeComponent implements OnInit {
     this.topteamcrimes = new Array<TeamCrimeRecord>();
   }
 
+  public topteamsFiltered: Array<TeamCrimeRecord> = null;
   public crimes: Array<CrimeRecord> = null;
   public topteamcrimes: Array<TeamCrimeRecord> = null;
 
@@ -49,6 +50,17 @@ export class TopTeamsCrimeComponent implements OnInit {
   public getTopTeamCrimes(crime: string): void {
     this.nflDataService.getTopTeamsForCrime(crime). subscribe(resp => {
       this.topteamcrimes = resp;
+      this.topteamsFiltered = this.topteamcrimes;
+    });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    if (filterValue.trim() == "") {
+      this.topteamsFiltered = this.topteamcrimes;
+    }
+    this.topteamsFiltered = this.topteamcrimes.filter(function (row) {
+      return row.name.toLowerCase().indexOf(filterValue.trim().toLowerCase()) >= 0;
     });
   }
 

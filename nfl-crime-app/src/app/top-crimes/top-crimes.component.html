@@ -1,7 +1,11 @@
+  <mat-form-field style="width:100%;padding-left:20px">
+    <mat-label>Filter by crime</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="type query">
+  </mat-form-field>
   <div style="height:500px;width:100%;overflow-y:auto;">
-    <mat-table [dataSource]="topcrimes">
+    <mat-table [dataSource]="topcrimesFiltered">
       <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
-      <mat-row *matRowDef="let topcrimes; columns: columnsToDisplay"></mat-row>
+      <mat-row *matRowDef="let topcrimesFiltered; columns: columnsToDisplay"></mat-row>
 
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef> Crime Name </mat-header-cell>

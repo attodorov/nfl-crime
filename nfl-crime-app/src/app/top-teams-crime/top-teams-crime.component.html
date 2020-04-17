@@ -7,10 +7,14 @@
   </mat-select>
 </mat-form-field>
 </div>
+<mat-form-field style="width:100%;padding-left:20px">
+  <mat-label>Filter by team</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="type query">
+</mat-form-field>
 <div style="height:500px;width:100%;overflow-y:auto;">
-  <mat-table [dataSource]="topteamcrimes">
+  <mat-table [dataSource]="topteamsFiltered">
     <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
-    <mat-row *matRowDef="let topteamcrimes; columns: columnsToDisplay"></mat-row>
+    <mat-row *matRowDef="let topteamsFiltered; columns: columnsToDisplay"></mat-row>
 
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef> Team Code </mat-header-cell>

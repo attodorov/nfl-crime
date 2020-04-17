@@ -17,6 +17,8 @@ export class TopCrimesComponent implements OnInit {
 
   public topcrimes: Array<CrimeRecord> = null;
 
+  public topcrimesFiltered: Array<CrimeRecord> = null;
+
   ngOnInit() {
     this.getTopCrimes();
   }
@@ -24,6 +26,17 @@ export class TopCrimesComponent implements OnInit {
   public getTopCrimes(): void {
     this.nflDataService.getTopCrimes().subscribe(resp => {
       this.topcrimes = resp;
+      this.topcrimesFiltered = this.topcrimes;
+    });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    if (filterValue.trim() == "") {
+      this.topcrimesFiltered = this.topcrimes;
+    }
+    this.topcrimesFiltered = this.topcrimes.filter(function (row) {
+      return row.name.toLowerCase().indexOf(filterValue.trim().toLowerCase()) >= 0;
     });
   }
 
