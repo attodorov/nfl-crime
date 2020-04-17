@@ -4,6 +4,7 @@ import { PlayerCrimeRecord } from './datamodel/PlayerCrimeRecord';
 import { TeamCrimeRecord } from './datamodel/TeamCrimeRecord';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { CrimeTimelineDataPoint } from './datamodel/CrimeTimelineDataPoint';
 
 @Injectable()
 export class NfldataServiceService {
@@ -23,5 +24,9 @@ export class NfldataServiceService {
 
   public getTopTeamsForCrime(crime: string): Observable<TeamCrimeRecord[]> {
     return this.http.get<TeamCrimeRecord[]>("http://localhost:3000/api/v1/topteamsforcrime" + "/" + crime);
+  }
+
+  public getCrimeTimeline(crime: string): Observable<CrimeTimelineDataPoint[]> {
+    return this.http.get<CrimeTimelineDataPoint[]>("http://localhost:3000/api/v1/crimetimeline" + "/" + crime);
   }
 }

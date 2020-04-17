@@ -1,0 +1,12 @@
+<div style="width:200px; padding-left:20px;margin-bottom:20px;">
+  <mat-form-field>
+    <mat-select placeholder="Choose crime" [(value)]="selectedCrime" (ngModel)="crimes">
+    <mat-option *ngFor="let crime of crimes" [value]="crime.name">
+      {{ crime.name }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+</div>
+<div>
+  <canvas style="width:100%;height:400px;" id="canvas">{{ chart }}</canvas>
+</div>

@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatTableModule, MatTableDataSource, MatSelectModule, MatInputModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NfldataServiceService } from './nfldata-service.service';
+import { CrimeTimelineComponent } from './crime-timeline/crime-timeline.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { NfldataServiceService } from './nfldata-service.service';
     TopCrimesComponent,
     TopPlayersCrimeComponent,
     TopTeamsCrimeComponent,
-    NavbarComponent
+    NavbarComponent,
+    CrimeTimelineComponent
   ],
   imports: [
     BrowserModule,

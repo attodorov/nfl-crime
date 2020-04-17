@@ -5,6 +5,7 @@ var http = require('http');
 var TOP_CRIMES_URL = "http://NflArrest.com/api/v1/crime";
 var TOP_PLAYERS_FOR_CRIME_URL = "http://NflArrest.com/api/v1/crime/topPlayers/";
 var TOP_TEAMS_FOR_CRIME_URL = "http://NflArrest.com/api/v1/crime/topTeams/";
+var CRIME_TIMELINE_URL = "http://nflarrest.com/api/v1/crime/timeline/";
 
 var EXPRESS_PORT = 3000;
 
@@ -96,6 +97,28 @@ app.get('/api/v1/topteamsforcrime/:crimeid', (req, res) => {
 		    handleResponse(serviceResponse, res, fn);
 		}).on('error', function (err) {
 		      console.log("Got an error when fetching top teams for crime " + req.params.crimeid + ": ", err);
+		      res.status(500).send(err);
+		});
+	} catch (e) {
+		res.status(500).end();
+	}
+});
+
+app.get('/api/v1/crimetimeline/:crimeid', (req, res) => {
+	try {
+		http.get(CRIME_TIMELINE_URL + req.params.crimeid, function (serviceResponse) {
+			var fn = function (rows) {
+				var ret = [];
+				if (rows) {
+					rows.forEach(function (row) {
+						ret.push({"month": row["Month"], "year": row["Year"], "arrestcount": parseInt(row["arrest_count"])});
+					});
+				}
+				return ret;
+			};
+		    handleResponse(serviceResponse, res, fn);
+		}).on('error', function (err) {
+		      console.log("Got an error when fetching crime timeline data for crime " + req.params.crimeid + ": ", err);
 		      res.status(500).send(err);
 		});
 	} catch (e) {

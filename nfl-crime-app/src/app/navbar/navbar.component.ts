@@ -10,6 +10,7 @@ export class NavbarComponent implements OnInit {
   public topCrimesTitle: string = "Top Crimes";
   public topPlayersForCrimesTitle: string = "Top Players for Crime";
   public topTeamsForCrimeTitle: string = "Top Teams for Crime";
+  public crimeTimeline: string = "Crime Timeline";
 
   constructor() { }
 
