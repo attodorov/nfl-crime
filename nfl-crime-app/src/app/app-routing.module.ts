@@ -7,10 +7,11 @@ import { AppComponent } from './app.component';
 import { CrimeTimelineComponent } from './crime-timeline/crime-timeline.component';
 
 const routes: Routes = [
-  { path: 'top-crimes', component: TopCrimesComponent, pathMatch: "full" },
+  { path: 'top-crimes', component: TopCrimesComponent},
   { path: 'top-players-for-crime', component: TopPlayersCrimeComponent},
   { path: 'top-teams-for-crime', component: TopTeamsCrimeComponent},
-  { path: 'crime-timeline', component: CrimeTimelineComponent}
+  { path: 'crime-timeline', component: CrimeTimelineComponent},
+  { path: '', component: TopCrimesComponent}
 ];
 
 @NgModule({

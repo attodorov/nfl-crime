@@ -16,6 +16,10 @@ export class TopTeamsCrimeComponent implements OnInit {
   constructor(private nflDataService: NfldataServiceService) {
     this.crimes = new Array<CrimeRecord>();
     this.topteamcrimes = new Array<TeamCrimeRecord>();
+    this.nflDataService.datesChanged.subscribe(() => {
+      // refresh
+      this.getTopTeamCrimes(this.selectedCrime);
+    });
   }
 
   public topteamsFiltered: Array<TeamCrimeRecord> = null;

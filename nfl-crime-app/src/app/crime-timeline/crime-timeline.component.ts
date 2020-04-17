@@ -21,7 +21,10 @@ export class CrimeTimelineComponent implements OnInit {
   public arrestData: Array<number> = new Array<number>();
 
   constructor(private elementRef: ElementRef, private nflDataService: NfldataServiceService) {
-
+    this.nflDataService.datesChanged.subscribe(() => {
+      // refresh
+      this.getCrimeTimelineData(this.selectedCrime);
+    });
   }
 
   public get selectedCrime(): string {

@@ -1,6 +1,5 @@
 var express = require('express');
 var http = require('http');
-
 //A.T. TODO - those should be parameterized in an .env file at the least. Also url pattern can be nicely parameterized. 
 var TOP_CRIMES_URL = "http://NflArrest.com/api/v1/crime";
 var TOP_PLAYERS_FOR_CRIME_URL = "http://NflArrest.com/api/v1/crime/topPlayers/";
@@ -37,9 +36,19 @@ function handleResponse(serviceResponse, expressResponse, dataTransformFunc) {
     });
 }
 
+function encodeQueryParams(req) {
+	var start_date = req.query.start_date;
+	var end_date = req.query.end_date;
+	var params = "";
+	if (start_date && end_date) {
+		params += "?start_date=" + start_date + "&end_date=" + end_date;
+	}
+	return params;
+}
+
 app.get('/api/v1/topcrimes', (req, res) => {
 	try {
-		http.get(TOP_CRIMES_URL, function (serviceResponse) {
+		http.get(TOP_CRIMES_URL + encodeQueryParams(req), function (serviceResponse) {
 			var fn = function (rows) {
 				var ret = [];
 				if (rows) {
@@ -62,7 +71,7 @@ app.get('/api/v1/topcrimes', (req, res) => {
 //A.T. - I've figured the crimeID is just the Category name returned from the /topcrimes endpoint. 
 app.get('/api/v1/topplayersforcrime/:crimeid', (req, res) => {
 	try {
-		http.get(TOP_PLAYERS_FOR_CRIME_URL + req.params.crimeid, function (serviceResponse) {
+		http.get(TOP_PLAYERS_FOR_CRIME_URL + req.params.crimeid + encodeQueryParams(req), function (serviceResponse) {
 			var fn = function (rows) {
 				var ret = [];
 				if (rows) {
@@ -84,7 +93,7 @@ app.get('/api/v1/topplayersforcrime/:crimeid', (req, res) => {
 
 app.get('/api/v1/topteamsforcrime/:crimeid', (req, res) => {
 	try {
-		http.get(TOP_TEAMS_FOR_CRIME_URL + req.params.crimeid, function (serviceResponse) {
+		http.get(TOP_TEAMS_FOR_CRIME_URL + req.params.crimeid + encodeQueryParams(req), function (serviceResponse) {
 			var fn = function (rows) {
 				var ret = [];
 				if (rows) {
@@ -106,7 +115,9 @@ app.get('/api/v1/topteamsforcrime/:crimeid', (req, res) => {
 
 app.get('/api/v1/crimetimeline/:crimeid', (req, res) => {
 	try {
-		http.get(CRIME_TIMELINE_URL + req.params.crimeid, function (serviceResponse) {
+		var start_date = req.query.start_date;
+		var end_date = req.query.end_date;
+		http.get(CRIME_TIMELINE_URL + req.params.crimeid + encodeQueryParams(req), function (serviceResponse) {
 			var fn = function (rows) {
 				var ret = [];
 				if (rows) {

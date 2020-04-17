@@ -1,0 +1,13 @@
+<div style="text-align:center;padding:0px;margin:0px;">
+  <mat-form-field style="display:inline-block;width:150px">
+    <input matInput #input1 [matDatepicker]="picker1" placeholder="Start Date" readonly (click)="openStartPicker()">
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1 [startAt]="startDateDefault" (selectedChanged)="startDateChange($event)"></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field style="display:inline-block;width:150px">
+    <input matInput #input2 [matDatepicker]="picker2" placeholder="End Date" readonly (click)="openEndPicker()">
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2 (selectedChanged)="endDateChange($event)"></mat-datepicker>
+  </mat-form-field>
+  <!--<button (click)="clearDates()" style="margin-left:10px;">Load All</button>-->
+</div>
