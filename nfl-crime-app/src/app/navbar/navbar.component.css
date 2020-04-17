@@ -1,0 +1,34 @@
+ul {
+  list-style-type: none;
+  margin-bottom:50px;
+  margin-top:10px;
+  width:100%;
+  padding-left:100px;
+  margin-left:0px;
+  margin-bottom:30px;
+  overflow: hidden;
+  color: white;
+  font-weight:600;
+  font-size: 1.3em;
+  background-color: rgb(92, 12, 145);
+}
+
+li {
+  display:inline-flex;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #7938c2;
+}
+
+li a:focus {
+  background-color: #8a84da;
+}

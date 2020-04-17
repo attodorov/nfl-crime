@@ -1,0 +1,36 @@
+<div style="width:200px; padding-left:20px;margin-bottom:20px;">
+  <mat-form-field>
+    <mat-select placeholder="Choose crime" [(value)]="selectedCrime" (ngModel)="crimes">
+    <mat-option *ngFor="let crime of crimes" [value]="crime.name">
+      {{ crime.name }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+</div>
+<div style="height:500px;width:100%;overflow-y:auto;">
+  <mat-table [dataSource]="topteamcrimes">
+    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+    <mat-row *matRowDef="let topteamcrimes; columns: columnsToDisplay"></mat-row>
+
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> Team Code </mat-header-cell>
+      <mat-cell *matCellDef="let rec"> {{rec.id}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Team Name </mat-header-cell>
+      <mat-cell *matCellDef="let rec"> {{rec.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="city">
+      <mat-header-cell *matHeaderCellDef> Team City </mat-header-cell>
+      <mat-cell *matCellDef="let rec"> {{rec.city}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="arrestcount">
+      <mat-header-cell *matHeaderCellDef> Arrest Count </mat-header-cell>
+      <mat-cell *matCellDef="let rec"> {{rec.arrestcount}} </mat-cell>
+    </ng-container>
+
+  </mat-table>
+</div>

@@ -1,0 +1,17 @@
+  <div style="height:500px;width:100%;overflow-y:auto;">
+    <mat-table [dataSource]="topcrimes">
+      <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+      <mat-row *matRowDef="let topcrimes; columns: columnsToDisplay"></mat-row>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Crime Name </mat-header-cell>
+        <mat-cell *matCellDef="let rec"> {{rec.name}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="arrestcount">
+        <mat-header-cell *matHeaderCellDef> Arrest Count </mat-header-cell>
+        <mat-cell *matCellDef="let rec"> {{rec.arrestcount}} </mat-cell>
+      </ng-container>
+
+    </mat-table>
+  </div>
